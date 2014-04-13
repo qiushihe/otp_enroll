@@ -14,8 +14,10 @@ puts "Restore Code: #{battle_net.restore_code}"
 puts "URL: #{battle_net.provisioning_url}"
 puts "------------------------------------"
 
+delay = 30 - ((Time.now.sec.to_f + battle_net.time_offset) % 30)
 totp = ROTP::TOTP.new(battle_net.secret_code, digits: 8)
 while true do
-  puts "Current Code: #{totp.now(true)}"
-  sleep 30
+  puts "Current Code: #{totp.now(true)} ..."
+  sleep delay
+  delay = 30
 end
